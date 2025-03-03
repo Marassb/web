@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Descubre la historia y la democracia estudiantil de la Institución Educativa San Antonio de Prado. Conoce su evolución, misión, visión y proyectos que marcan la diferencia.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institución Educativa San Antonio de Prado | Historia & Democracia Estudiantil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Variables de colores y transiciones */
+    :root {
+      --primary: #002060;
+      --secondary: #004080;
+      --accent: #460080;
+      --separator: #530080;
+      --bg-light: #f4f4f4;
+      --bg-dark: #121212;
+      --main-dark: #1e1e1e;
+      --white: #ffffff;
+      --text-light: #333333;
+      --text-dark: #e0e0e0;
+      --transition: all 0.3s ease-in-out;
+    }
+    /* Modo oscuro */
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    body.dark-mode header,
+    body.dark-mode nav,
+    body.dark-mode footer {
+      background-color: var(--primary);
+    }
+    body.dark-mode .banner {
+      background: linear-gradient(to right, var(--secondary), var(--primary));
+    }
+    body.dark-mode main {
+      background-color: var(--main-dark);
+      color: var(--text-dark);
+    }
+    body.dark-mode a {
+      color: var(--white);
+    }
+    body.dark-mode .institucion-img-container,
+    body.dark-mode .escudo-container {
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Reset y tipografía */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    /* Spinner animado */
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid var(--secondary);
+      border-top: 5px solid var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Enlace "Saltar a contenido" */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--accent);
+      color: var(--white);
+      padding: 8px 16px;
+      z-index: 100;
+      transition: var(--transition);
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Barra de progreso */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 999;
+      transition: width 0.25s ease-out;
+    }
+
+    /* Header y navegación */
+    header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 20px 10%;
+      position: relative;
+    }
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+    /* Botón hamburguesa (solo en móviles) */
+    #hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    #hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--white);
+      transition: var(--transition);
+    }
+    nav {
+      background: var(--secondary);
+      padding: 10px 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: var(--transition);
+    }
+    nav a:hover {
+      background: var(--accent);
+    }
+    /* Botón modo oscuro */
+    #darkModeToggle {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    #darkModeToggle:hover {
+      background: var(--separator);
+    }
+
+    /* Banner */
+    .banner {
+      background: linear-gradient(to right, var(--secondary), var(--primary));
+      color: var(--white);
+      text-align: center;
+      padding: 40px 10%;
+      font-size: 2rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Main y secciones */
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px 10%;
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    section {
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    section h2 {
+      color: var(--secondary);
+      font-size: 1.8rem;
+      border-bottom: 3px solid var(--accent);
+      display: inline-block;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+    section p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+    .separator {
+      width: 100%;
+      height: 2px;
+      background: var(--separator);
+      margin: 30px 0;
+      border-radius: 1px;
+    }
+    /* Escudo e imagen del colegio */
+    .escudo-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+    }
+    .escudo-container {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 6px solid var(--secondary);
+      background: var(--white);
+      transition: var(--transition);
+    }
+    .escudo-container:hover {
+      transform: scale(1.05);
+    }
+    .escudo-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .institucion-img-container {
+      width: 500px;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+    }
+    .institucion-img-container:hover {
+      transform: scale(1.02);
+    }
+    .institucion-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    ul {
+      list-style: disc inside;
+      margin-left: 20px;
+      font-size: 1.1rem;
+    }
+    footer {
+      background: var(--secondary);
+      color: var(--white);
+      text-align: center;
+      padding: 20px 10%;
+      font-size: 1rem;
+    }
+    /* Botón "Volver Arriba" */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--secondary);
+      color: var(--white);
+      padding: 10px 15px;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 1.5rem;
+      display: none;
+      transition: var(--transition);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+    }
+    .scroll-top:hover {
+      background: var(--accent);
+    }
+
+    /* Menú móvil: mostrar hamburguesa y ocultar lista */
+    @media (max-width: 768px) {
+      #hamburger {
+        display: flex;
+      }
+      nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 10px;
+      }
+      nav.active ul {
+        display: flex;
+      }
+      .institucion-img-container {
+        width: 100%;
+        height: auto;
+      }
+      .escudo-section {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <!-- Preloader -->
+  <div id="preloader" aria-hidden="true">
+    <div class="spinner"></div>
+  </div>
+
+  <a href="#main" class="skip-link">Saltar a contenido</a>
+  <div id="progress-bar"></div>
+
+  <header role="banner">
+    <div class="header-container">
+      <h1>Institución Educativa San Antonio de Prado</h1>
+      <button id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav id="nav" role="navigation" aria-label="Menú principal">
+    <ul>
+      <li><a href="#escudo-imagen">Escudo &amp; Imagen</a></li>
+      <li><a href="#historia-colegio">Historia</a></li>
+      <li><a href="#democracia-estudiantil">Democracia</a></li>
+      <li><a href="#mision-vision-filosofia">Misión, Visión &amp; Filosofía</a></li>
+    </ul>
+    <button id="darkModeToggle" aria-label="Alternar modo oscuro">Modo Oscuro</button>
+  </nav>
+
+
+  <main id="main">
+    <section id="escudo-imagen" class="fade-section">
+      <h2>Escudo e Imagen del Colegio</h2>
+      <div class="escudo-section">
+        <div class="escudo-container">
+          <img src="cropped-1623765865.jpeg" alt="Escudo del colegio" loading="lazy">
+        </div>
+        <div class="institucion-img-container">
+          <img src="43886prado.jpg" alt="Imagen representativa del Colegio" loading="lazy">
+        </div>
+      </div>
+    </section>
+    <div class="separator"></div>
+    <section id="historia-colegio" class="fade-section">
+      <h2>Historia del Colegio</h2>
+      <p>Nuestra Institución Educativa San Antonio de Prado (SADEP) es una institución pública ubicada en el corregimiento de San Antonio de Prado, Medellín, Antioquia. Su misión es brindar educación integral desde preescolar hasta la educación media, con énfasis en la formación académica y agropecuaria.</p>
+      <div class="separator"></div>
+      <p>SADEP surgió como respuesta a la creciente demanda educativa en la zona. Antes de su creación, las opciones eran limitadas y estaban cubiertas principalmente por el Liceo Manuel J. Betancur y el IDEM San Antonio de Prado. En 1994, el crecimiento poblacional evidenció la necesidad de ampliar la oferta educativa, impulsando la creación de nuevas instituciones, incluida SADEP.</p>
+      <div class="separator"></div>
+      <p>Con el tiempo, SADEP ha crecido en infraestructura y oferta educativa. Actualmente, cuenta con tres sedes:</p>
+      <ul>
+        <li>Sede Principal (Secundaria y Media): Carrera 79 N°42 Sur 39.</li>
+        <li>Sede Manuel María Mallarino (Primaria): Calle 40 Sur N°75 B 101.</li>
+        <li>Sede Carlos Betancur (Primaria): Carrera 77 N°41 Sur 2.</li>
+      </ul>
+      <div class="separator"></div>
+      <p>En 2015, fue seleccionada como una de las 36 instituciones públicas priorizadas para la ampliación y mejoramiento de sus instalaciones. Se construyeron 14 nuevas aulas y se optimizaron 15 existentes, garantizando espacios idóneos para el aprendizaje.</p>
+    </section>
+    <div class="separator"></div>
+    <section id="democracia-estudiantil" class="fade-section">
+      <h2>Democracia Estudiantil</h2>
+      <div class="separator"></div>
+      <p>La Institución Educativa San Antonio de Prado fomenta la participación activa de sus estudiantes en procesos democráticos internos, formando valores ciudadanos que promueven la responsabilidad y autonomía.</p>
+      <div class="separator"></div>
+      <p>Se realizan jornadas escolares de democracia, donde se eligen representantes y se potencia el liderazgo juvenil, fortaleciendo el compromiso cívico y el sentido de pertenencia.</p>
+      <div class="separator"></div>
+      <p>Además, el proyecto "Formación Ciudadana en Constitución Política y Democracia" proporciona herramientas esenciales para comprender y participar en los procesos democráticos, tanto en el ámbito escolar como en la sociedad.</p>
+      <div class="separator"></div>
+      <p>Estas iniciativas reafirman el compromiso de SADEP con la formación integral de sus estudiantes, preparándolos para ser ciudadanos activos y comprometidos.</p>
+    </section>
+    <div class="separator"></div>
+    <section id="mision-vision-filosofia" class="fade-section">
+      <h2>Misión</h2>
+      <p>La Institución Educativa San Antonio de Prado tiene como Misión la formación de estudiantes
+        responsables y respetuosos, mediante el fortalecimiento de saberes académicos y los adquiridos a
+        través de la media Técnica, la práctica de valores culturales, ambientales y éticos, que contribuyan al
+        mejoramiento de su entorno social y la proyección a la educación superior o la inserción laboral.</p>
+      <div class="separator"></div>
+      <h2>Visión</h2>
+      <p>Para el año 2026, La Institución Educativa San Antonio de Prado, será reconocida por su alto nivel
+        académico y formación humana, mediante la implementación del modelo pedagógico constructivista
+        social a través de los saberes académicos y específicos de la Media Técnica, la implementación de las
+        Tecnologías de la Información y la Comunicación, la investigación y la creatividad, para la formación
+        de ciudadanos íntegros proyectados a la educación superior o la inserción laboral.</p>
+      <div class="separator"></div>
+      <h2>Filosofía</h2>
+      <p>La Institución Educativa San Antonio de Prado posibilita a sus integrantes la educación como medio
+        eficaz para contribuir al desarrollo humano, por medio de la inclusión, saberes académicos y
+        específicos desde la media técnica, con libertad responsable, participación consciente, donde la
+        ciencia y los valores se integren a la familia y al grupo social, fortaleciendo los vínculos que puedan
+        favorecer la identidad, participación y la transformación de la sociedad..</p>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    &copy; 2025 Institución Educativa San Antonio de Prado. Todos los derechos reservados.
+  </footer>
+  <a href="#top" class="scroll-top" title="Volver arriba">&#8679;</a>
+
+  <script>
+    // Preloader: Ocultar cuando se cargue todo
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      preloader.style.opacity = '0';
+      setTimeout(() => { preloader.style.display = 'none'; }, 500);
+    });
+
+    // Modo Oscuro con persistencia
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const enableDarkMode = () => {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.textContent = 'Modo Claro';
+      localStorage.setItem('darkMode', 'enabled');
+    };
+    const disableDarkMode = () => {
+      document.body.classList.remove('dark-mode');
+      darkModeToggle.textContent = 'Modo Oscuro';
+      localStorage.setItem('darkMode', 'disabled');
+    };
+    if (localStorage.getItem('darkMode') === 'enabled' ||
+       (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      enableDarkMode();
+    }
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.contains('dark-mode') ? disableDarkMode() : enableDarkMode();
+    });
+
+    // Menú hamburguesa para móviles
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+    hamburger.addEventListener('click', () => {
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+      hamburger.setAttribute('aria-expanded', !expanded);
+      nav.classList.toggle('active');
+    });
+
+    // Barra de progreso del scroll
+    const progressBar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      progressBar.style.width = scrollPercent + "%";
+    });
+
+    // Mostrar botón "Volver Arriba"
+    const scrollTopButton = document.querySelector('.scroll-top');
+    window.addEventListener('scroll', () => {
+      scrollTopButton.style.display = window.pageYOffset > 300 ? 'block' : 'none';
+    });
+  </script>
+</body>
+</html>
